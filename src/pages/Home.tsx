@@ -1,20 +1,39 @@
-import { useState } from 'react'
+import { useState, useEffect } from "react";
+import { getPopularMovies } from "../services/api";
+import MovieCard from "../components/MovieCard";
+
 
 function Home() {
-  const [count, setCount] = useState(0)
+  const [popularMovies, setPopularMovies] = useState([]);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const data = await getPopularMovies();
+        console.log(data); 
+        setPopularMovies(data || []);
+      } catch (error) {
+        console.error("Erro ao buscar filmes:", error);
+      }
+    };
+
+    fetchMovies();
+  }, []);
 
   return (
-    
-    <div className="min-h-screen flex flex-col items-center justify-center space-y-6 text-center bg-gray-100">
-      <h1 className="text-4xl font-bold text-gray-900">Movie DB</h1>
-      <p className="text-xl text-gray-600">Bem-vindo ao nosso catálogo de filmes</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl px-4">
-        <div className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
-          <p>Conteúdo do filme virá aqui</p>
-        </div>
+
+    <div className="container">
+      <h2 className="title">Filmes Populares</h2>
+      <div className="moveis-container">
+        {popularMovies.length === 0 && <p>Carregando filmes...</p>}
+        {popularMovies && popularMovies.length > 0 ? (
+          popularMovies.map((movie: any) => <MovieCard movie={movie} enableLink={true} />)
+        ) : (
+          <p>Nenhum filme encontrado.</p>
+        )}
+      </div>      
       </div>
-    </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

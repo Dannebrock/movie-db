@@ -12,21 +12,32 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+} */
 
+/* SEU CSS CORRIGIDO (SOLUÇÃO) */
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: #213547; /* Sua cor de fundo escura preferida */
+margin: 0;
+min-width: 320px;
+
+  /* Mude de 60vh para 100vh.
+     Isso garante que seu fundo azul ocupe
+     SEMPRE a altura inteira da tela,
+     mesmo que o conteúdo seja curto.
+  */
+min-height: 100vh; 
+
+  background-color: #213547;
+  
+  /* 'display: flex' e 'place-items: center' foram REMOVIDOS */
 }
 
 /* Alterado para que links também fiquem brancos */
@@ -59,6 +70,15 @@ h1 {
     margin-right: 32px; /* 2rem - Sua margem original */
   }
 }
+
+.movies-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 2rem;  
+  margin: 0 auto;
+} 
+
 
 
 button {

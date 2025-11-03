@@ -1,6 +1,7 @@
 // components/MovieCard.tsx
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useFavorites } from "../contexts/FavoritesContext";
+import {Trash2} from 'lucide-react'
 
 interface Movie {
   id: number;
@@ -14,13 +15,14 @@ interface MovieCardProps {
   movie: Movie;
   enableLink?: boolean;
   highlightQuery?: string;
+  iconTrash?: boolean;
 }
 
 
-const MovieCard = ({ movie, enableLink = true, highlightQuery = "" }: MovieCardProps) => {
+const MovieCard = ({ movie, enableLink = true, highlightQuery = "" , iconTrash = false}: MovieCardProps) => {
 
-  const [isFavorited, setIsFavorited] = useState(false);
-
+  const { addFavorite, removeFavorite, isFavorited } = useFavorites();
+  const isMovieFavorited = isFavorited(movie.id);
   
   const poster = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
@@ -31,17 +33,14 @@ const MovieCard = ({ movie, enableLink = true, highlightQuery = "" }: MovieCardP
   const handleFavoriteClick = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     event.stopPropagation();
-
-    // 3. Atualize o estado a cada clique
-    setIsFavorited((prev) => !prev); // Inverte o estado (true -> false -> true)
-
-    // Sua lógica de API (adicionar/remover favorito) iria aqui
-    if (!isFavorited) {
-      console.log("Adicionando aos favoritos:", movie.id);
-      // ex: addToFavorites(movie.id);
+    
+    // 7. A lógica agora é simples:
+    if (isMovieFavorited) {
+      // Se já é favorito, remova
+      removeFavorite(movie.id);
     } else {
-      console.log("Removendo dos favoritos:", movie.id);
-      // ex: removeFromFavorites(movie.id);
+      // Se não é, adicione
+      addFavorite(movie); 
     }
   };
 
@@ -67,17 +66,31 @@ const MovieCard = ({ movie, enableLink = true, highlightQuery = "" }: MovieCardP
             w-8 h-8 rounded-full bg-black/40 
             flex items-center justify-center
             hover:bg-black/60 transition-colors
+            text-white
           "
           aria-label="Adicionar aos favoritos"
         >          
-          <span
+          {iconTrash === false ? (
+            
+            <span
+
             className={`
-              text-lg 
-              ${isFavorited ? "text-red-500" : "text-white"}
+
+              text-lg
+
+              ${isMovieFavorited ? "text-red-500" : "text-white"}
+
             `}
+
           >
-            {isFavorited ? "♥" : "♡"}
-          </span>
+            {isMovieFavorited ? "♥" : "♡"}
+
+          </span>) : (
+            
+            <span>
+              <Trash2 className="w-4 h-4 hover:stroke-red-500" />
+            </span>
+          )}
         </button>
                
         {enableLink && (

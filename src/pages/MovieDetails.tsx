@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'; 
 import { getDetailMovies } from '../services/api'; 
 import { Heart} from 'lucide-react'
-
+import { useFavorites } from "../contexts/FavoritesContext";
 
 // (Opcional, mas recomendado) Crie uma interface para os detalhes
 interface MovieDetails {
@@ -17,6 +17,8 @@ interface MovieDetails {
   // Adicione outros campos que quiser
 }
 
+
+
 function MovieDetails() {
   // 3. Pegue o 'id' da URL. Ele vem como string!
   const { id } = useParams<{ id: string }>(); 
@@ -24,7 +26,9 @@ function MovieDetails() {
   // 4. Crie estados para guardar os dados e o carregamento
   const [movie, setMovie] = useState<MovieDetails | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isFavorited, setIsFavorited] = useState(false);
+
+  const { addFavorite, removeFavorite, isFavorited } = useFavorites();
+  const isMovieFavorited = movie ? isFavorited(movie.id) : false;
 
   // 5. Use 'useEffect' para buscar os dados quando a página carregar
   useEffect(() => {
@@ -62,17 +66,14 @@ function MovieDetails() {
   const handleFavoriteClick = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     event.stopPropagation();
-
-    // 3. Atualize o estado a cada clique
-    setIsFavorited((prev) => !prev); // Inverte o estado (true -> false -> true)
-
-    // Sua lógica de API (adicionar/remover favorito) iria aqui
-    if (!isFavorited) {
-      console.log("Adicionando aos favoritos:", movie.id);
-      // ex: addToFavorites(movie.id);
+    
+    // 7. A lógica agora é simples:
+    if (isMovieFavorited) {
+      // Se já é favorito, remova
+      removeFavorite(movie.id);
     } else {
-      console.log("Removendo dos favoritos:", movie.id);
-      // ex: removeFromFavorites(movie.id);
+      // Se não é, adicione
+      addFavorite(movie); 
     }
   };
 
@@ -149,13 +150,13 @@ const imageUrl = movie.backdrop_path
                 mt-6 flex items-center justify-center gap-2 
                 px-5 py-3 rounded-lg font-semibold
                 transition-colors duration-200
-                ${isFavorited 
+                ${isMovieFavorited 
                   ? 'bg-gray-500 hover:bg-gray-600 text-white' // Estilo "Removido"
                   : 'bg-red-600 hover:bg-red-700 text-white'   // Estilo "Adicionar"
                 }
               `}
             >
-              {isFavorited ? (
+              {isMovieFavorited ? (
                 <>
                   {/* Estado Favoritado (Botão Cinza): Ícone PREENCHIDO */}
                   <Heart className="w-5 h-5 fill-white-700"  />

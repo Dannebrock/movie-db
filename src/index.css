@@ -50,9 +50,12 @@ a:hover {
   color: #535bf2;
 }
 h1 {
-  /* Fonte responsiva: mínimo 2.4em, cresce com a tela, máximo 3.2em */
-  font-size: clamp(2.4em, 7vw, 3.2em);
+  /* Fonte responsiva: mínimo 2.4em, cresce com a tela, máximo 3.2em */  
   line-height: 1.1;
+}
+
+.button-search{
+  color: white;
 }
 
 .input-com-padding-esquerdo {
@@ -90,10 +93,10 @@ button {
   font-family: inherit;  
   cursor: pointer;
   transition: border-color 0.25s;
-  color: inherit; /* Garante que o botão também use o texto branco */
+  /* color: inherit;  */
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #ffffff;
 }
 button:focus,
 button:focus-visible {

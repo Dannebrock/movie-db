@@ -74,50 +74,10 @@ const Search = () => {
 
   // 4. Renderização (Layout da Imagem + Grid Infinito)
   return (
-    // <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-white">
-      
-    //   {/* === SEU HEADER (DA IMAGEM) === */}
-    //   <div className="mb-6 border-b border-gray-700 pb-4">
-    //     <h2 className="text-3xl font-semibold mb-1">
-    //       Resultados para: "<span className="text-yellow-500">{q}</span>"
-    //     </h2>
-    //     <p className="text-gray-400">
-    //       Encontrados {totalResults} filmes
-    //     </p>
-    //   </div>
 
-    //   {/* === SEU GRID (COPIADO DO HOME) === */}
-    //   <InfiniteScroll
-    //     dataLength={movies.length} 
-    //     next={loadMoreMovies}
-    //     hasMore={hasMore}
-    //     loader={<h4 className="text-white text-center col-span-full py-4">Carregando...</h4>}
-    //     endMessage={
-    //       // Só mostre a mensagem de fim se tiver tido resultados
-    //       movies.length > 0 ? (
-    //         <p className="text-gray-400 text-center col-span-full py-4">
-    //           <b>Estes são todos os resultados.</b>
-    //         </p>
-    //       ) : (
-    //         // Mensagem se a busca não retornar nada
-    //         !hasMore && (
-    //           <p className="text-gray-400 text-center col-span-full py-4">
-    //             Nenhum filme encontrado para "{q}".
-    //           </p>
-    //         )
-    //       )
-    //     }
-    //     className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"
-    //   >
-    //     {movies.map((movie) => (
-    //       <MovieCard key={movie.id} movie={movie} enableLink={true} highlightQuery={q}/>
-    //     ))}
-    //   </InfiniteScroll>
-    // </div>
 
     <div className=""> {/* Seu container pai */}
-
-     {/* === SEU HEADER (DA IMAGEM) === */}
+     
           <div className="ml-6 mb-6 border-b border-gray-700 pb-4">
             <h2 className="text-3xl font-semibold mb-1">
               Resultados para: "<span className="text-yellow-500">{q}</span>"

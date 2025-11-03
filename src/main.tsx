@@ -9,6 +9,7 @@ import Search from './pages/Search.tsx'
 import NotFoundPage from './pages/NotFoundPage.tsx'
 import AppLayout from './components/AppLayout'
 import { SearchProvider } from './contexts/SearchContext'
+import { FavoritesProvider } from './contexts/FavoritesContext' 
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
@@ -29,8 +30,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <FavoritesProvider>
     <SearchProvider>
       <RouterProvider router={router} />
     </SearchProvider>
+    </FavoritesProvider>
   </StrictMode>,
 )

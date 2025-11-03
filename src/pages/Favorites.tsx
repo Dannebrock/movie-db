@@ -9,13 +9,6 @@ import { ListX } from 'lucide-react';
 // 4. (Opcional) Importe o Link para o 'call-to-action'
 import { Link } from 'react-router-dom';
 
-interface Movie {
-  id: number;
-  title: string;
-  poster_path: string | null;
-  vote_average: number;
-  release_date?: string;
-}
 
 // Tipos para a ordenação
 type SortOrder = 'A-Z' | 'Z-A' | 'nota-desc';

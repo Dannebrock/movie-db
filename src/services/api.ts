@@ -33,4 +33,17 @@ export const getDetailMovies = async (id: number) => {
   return response.data; // Retorna o objeto completo do filme
 };
 
+export const searchMovies = async (page: number, termo: string) => { 
+  // Use crases (`) para montar a URL com o ID
+  const response = await api.get(`search/movie?query=${termo}`, {
+    params: {
+    language: 'pt-BR',
+    page: page, 
+        // Remova o 'page', ele não é usado aqui
+    }
+  });
+
+  return response.data; // Retorna o objeto completo do filme
+};
+
 export default api;

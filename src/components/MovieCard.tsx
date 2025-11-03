@@ -13,10 +13,11 @@ interface Movie {
 interface MovieCardProps {
   movie: Movie;
   enableLink?: boolean;
+  highlightQuery?: string;
 }
 
 
-const MovieCard = ({ movie, enableLink = true }: MovieCardProps) => {
+const MovieCard = ({ movie, enableLink = true, highlightQuery = "" }: MovieCardProps) => {
 
   const [isFavorited, setIsFavorited] = useState(false);
 
@@ -96,7 +97,21 @@ const MovieCard = ({ movie, enableLink = true }: MovieCardProps) => {
       {/* Informações (Título e Nota) */}
       <div className="mt-2 text-sm text-gray-200 pl-3 pb-3">
         <div className="font-semibold leading-tight text-white truncate">
-          {movie.title}
+          {!highlightQuery ? movie.title : (
+            <>
+              {movie.title.split(new RegExp(`(${highlightQuery})`, 'gi')).map((part, index) => 
+                part.toLowerCase() === highlightQuery.toLowerCase() ? (
+                  // Estilo de destaque (igual ao da sua imagem)
+                  <span key={index} className="bg-yellow-500 text-black px-1 rounded-sm">
+                    {part}
+                  </span>
+                ) : (
+                  // Parte normal do texto
+                  <span key={index}>{part}</span>
+                )
+              )}
+            </>
+          )}
         </div>
         <div className="inline-flex items-center justify-center rounded-full bg-yellow-500 px-2 py-0.5 text-xs font-bold text-black mt-2">
           <span>{movie.vote_average ? movie.vote_average.toFixed(1) : "—"}</span>

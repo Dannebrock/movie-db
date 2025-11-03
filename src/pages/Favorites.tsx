@@ -96,7 +96,7 @@ const Favorites = () => {
               key={movie.id} 
               movie={movie} 
               enableLink={true}               
-              iconTrash={true} 
+              trashIcon={true} 
             />
           ))}
         </div>

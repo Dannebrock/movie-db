@@ -44,6 +44,7 @@ function Home() {
       console.error("Erro ao buscar mais filmes:", error);
       setHasMore(false);
     }
+    //colocar um catch para caso a url da api eesta incorreta ou fora do ar
   };
 
   // 3. useEffect chama a carga inicial (Página 1)
@@ -56,6 +57,9 @@ function Home() {
 
   return (
     <div className=""> {/* Seu container pai */}
+      {popularMovies.length === 0 ?(
+          <div className="text-white text-center p-10">Tente novamente mais tarde...</div>
+      ) : (
       <InfiniteScroll
         // dataLength é o número de itens atuais
         dataLength={popularMovies.length} 
@@ -82,6 +86,7 @@ function Home() {
           <MovieCard key={movie.id} movie={movie} enableLink={true} />
         ))}
       </InfiniteScroll>
+      )}
     </div>
   );
 }

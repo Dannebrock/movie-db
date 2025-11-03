@@ -1,5 +1,3 @@
-// api.ts (Corrigido)
-
 import axios from "axios";
 
 const api = axios.create({
@@ -21,29 +19,25 @@ export const getPopularMovies = async (page: number) => { // <--- 1. Recebe 'pag
       return response.data; 
 };
 
-export const getDetailMovies = async (id: number) => { 
-  // Use crases (`) para montar a URL com o ID
+export const getDetailMovies = async (id: number) => {   
   const response = await api.get(`/movie/${id}`, {
     params: {
-    language: 'pt-BR',
-        // Remova o 'page', ele não é usado aqui
+    language: 'pt-BR',       
     }
   });
 
   return response.data; // Retorna o objeto completo do filme
 };
 
-export const searchMovies = async (page: number, termo: string) => { 
-  // Use crases (`) para montar a URL com o ID
+export const searchMovies = async (page: number, termo: string) => {  
   const response = await api.get(`search/movie?query=${termo}`, {
     params: {
     language: 'pt-BR',
-    page: page, 
-        // Remova o 'page', ele não é usado aqui
+    page: page,    
     }
   });
 
-  return response.data; // Retorna o objeto completo do filme
+  return response.data; 
 };
 
 export default api;

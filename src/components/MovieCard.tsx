@@ -15,11 +15,11 @@ interface MovieCardProps {
   movie: Movie;
   enableLink?: boolean;
   highlightQuery?: string;
-  iconTrash?: boolean;
+  trashIcon?: boolean;
 }
 
 
-const MovieCard = ({ movie, enableLink = true, highlightQuery = "" , iconTrash = false}: MovieCardProps) => {
+const MovieCard = ({ movie, enableLink = true, highlightQuery = "" , trashIcon = false}: MovieCardProps) => {
 
   const { addFavorite, removeFavorite, isFavorited } = useFavorites();
   const isMovieFavorited = isFavorited(movie.id);
@@ -70,7 +70,7 @@ const MovieCard = ({ movie, enableLink = true, highlightQuery = "" , iconTrash =
           "
           aria-label="Adicionar aos favoritos"
         >          
-          {iconTrash === false ? (
+          {trashIcon === false ? (
             
             <span
 

@@ -5,7 +5,7 @@ import { useFavorites } from '../contexts/FavoritesContext';
 // 2. Importe o card que já refatoramos
 import MovieCard from '../components/MovieCard';
 // 3. (Opcional) Importe um ícone ou imagem para o estado vazio
-import { ListX } from 'lucide-react';
+import { Clapperboard } from 'lucide-react';
 // 4. (Opcional) Importe o Link para o 'call-to-action'
 import { Link } from 'react-router-dom';
 
@@ -72,18 +72,18 @@ const Favorites = () => {
         
         // 9. ESTADO VAZIO (call-to-action)
         <div className="flex flex-col items-center justify-center text-center py-20 text-gray-400">
-          <ListX size={64} className="mb-6" />
+          <Clapperboard size={64} className="mb-6" />
           <h2 className="text-2xl font-semibold mb-2 text-white">
-            Sua lista está vazia
+            Nenhum filme favorito ainda
           </h2>
           <p className="text-lg mb-6">
-            Adicione filmes aos seus favoritos para vê-los aqui.
+           Comece explorando filmes populares e adicione seus favoritos.
           </p>
           <Link 
             to="/" 
             className="bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors button-search"
           >
-            Procurar filmes
+            Explorar Filmes
           </Link>
         </div>
 

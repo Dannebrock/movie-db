@@ -20,7 +20,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 w-full bg-[#1a2332] border-b border-[#2a3442] px-4 sm:px-6 lg:px-10">
+    <nav className="fixed top-0 left-0 right-0 z-50 w-full bg-[#1a2332] border-b border-[#2a3442] px-2 sm:px-6 lg:px-10">
       <div className="mx-auto flex h-14 items-center justify-between margin-nav">
 
         {/* 3. BOTÃO DE MENU (MOBILE)
@@ -60,7 +60,7 @@ const NavBar = () => {
               />
               <button
                 type="submit"
-                className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-1 rounded-full flex items-center justify-center"
+                className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 px-2 py-1 rounded-full flex items-center justify-center "
               >
                 <BiSearchAlt2 size={18} />
               </button>

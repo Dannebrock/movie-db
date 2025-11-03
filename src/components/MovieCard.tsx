@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BiHeart } from "react-icons/bi";
+// import { BiHeart } from "react-icons/bi";
 
 interface Movie {
   id: number;

@@ -1,8 +1,8 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 
 
 function MovieDetails() {
-  const [count, setCount] = useState(0)
+  
 
   return (
     <>

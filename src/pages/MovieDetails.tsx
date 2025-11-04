@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'; 
-import { getDetailMovies } from '../services/api'; 
+import { getMoviesDetails } from '../services/api'; 
 import { Heart} from 'lucide-react'
 import { useFavorites } from "../contexts/FavoritesContext";
 
@@ -13,8 +13,7 @@ interface MovieDetails {
   backdrop_path: string;
   vote_average: number;
   release_date: string;
-  genres: { id: number; name: string }[];
-  // Adicione outros campos que quiser
+  genres: { id: number; name: string }[];  
 }
 
 
@@ -39,7 +38,7 @@ function MovieDetails() {
         try {
           setLoading(true); // Começa a carregar
           // Converta o 'id' (string) para 'number'
-          const data = await getDetailMovies(Number(id)); 
+          const data = await getMoviesDetails(Number(id)); 
           setMovie(data); // Salva os dados no estado
         } catch (error) {
           console.error("Erro ao buscar detalhes do filme:", error);
@@ -49,11 +48,9 @@ function MovieDetails() {
         }
       }
     };
-
     fetchDetails(); // Chame a função
   }, [id]); // O 'useEffect' vai rodar de novo se o ID na URL mudar
 
-  // 6. Crie a lógica de renderização
 
   if (loading) {
     return <div className="text-white text-center p-10">Carregando...</div>;
@@ -89,7 +86,7 @@ const imageUrl = movie.backdrop_path
       {/* Grid de 2 colunas: 1 no mobile (stack), 2 no desktop */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
         
-        {/* === COLUNA 1: IMAGEM === */}
+        {/* IMAGEM */}
         <div className="md:col-span-6 ">
           <img
             src={imageUrl}
@@ -98,7 +95,7 @@ const imageUrl = movie.backdrop_path
           />
         </div>
 
-        {/* === COLUNA 2: INFORMAÇÕES === */}
+        {/*  INFORMAÇÕES  */}
         <div className="md:col-span-6">
           
           {/* Título */}
@@ -123,12 +120,12 @@ const imageUrl = movie.backdrop_path
             <strong>Data de lançamento:</strong> {
               // Formata a data para pt-BR
               new Date(movie.release_date).toLocaleDateString('pt-BR', {
-                timeZone: 'UTC', // Evita erros de fuso horário (dia +/-)
+                timeZone: 'UTC', 
               })
             }
           </p>
 
-          {/* Nota TMDB (reaproveitando o componente da pílula) */}
+          {/* Nota */}
           <div className="flex items-center gap-2 mb-6">
             <span className="text-gray-300">Nota TMDB:</span>
             <div className="inline-flex items-center justify-center rounded-full bg-yellow-500 px-2 py-0.5 text-xs font-bold text-black">
@@ -151,20 +148,18 @@ const imageUrl = movie.backdrop_path
                 px-5 py-3 rounded-lg font-semibold
                 transition-colors duration-200
                 ${isMovieFavorited 
-                  ? 'bg-gray-500 hover:bg-gray-600 text-white' // Estilo "Removido"
-                  : 'bg-red-600 hover:bg-red-700 text-white'   // Estilo "Adicionar"
+                  ? 'bg-gray-500 hover:bg-gray-600 text-white' 
+                  : 'bg-red-600 hover:bg-red-700 text-white'   
                 }
               `}
             >
               {isMovieFavorited ? (
-                <>
-                  {/* Estado Favoritado (Botão Cinza): Ícone PREENCHIDO */}
+                <>                  
                   <Heart className="w-5 h-5 fill-white-700"  />
                   <span>Remover dos Favoritos!</span>
                 </>
               ) : (
-                <>
-                  {/* Estado Não Favoritado (Botão Vermelho): Ícone VAZIO */}
+                <>                 
                   <Heart className="w-5 h-5" />
                   <span>Adicionar aos Favoritos</span>
                 </>

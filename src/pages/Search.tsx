@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { searchMovies } from '../services/api'; // Importe a função corrigida
+import { searchMovies } from '../services/api'; 
 import MovieCard from '../components/MovieCard';
 
-// (Opcional, mas recomendado) Defina a interface Movie
 interface Movie {
   id: number;
   title: string;

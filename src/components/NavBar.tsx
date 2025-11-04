@@ -22,7 +22,6 @@ const NavBar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 w-full bg-[#1a2332] border-b border-[#2a3442] px-2 sm:px-6 lg:px-10">
       <div className="mx-auto flex h-14 items-center justify-between margin-nav">
-
         {/* 3. BOTÃO DE MENU (MOBILE)
             'flex' = visível no mobile
             'sm:hidden' = escondido a partir de 640px
@@ -90,14 +89,14 @@ const NavBar = () => {
                    ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} 
                    sm:hidden`} // O menu lateral também some no desktop
       >
-        <nav className="flex flex-col p-4 gap-4">
+        <div className="flex flex-col p-4 gap-4">
           <Link to="/" onClick={closeMenu} className="text-lg text-gray-300 hover:text-white">
             Home
           </Link>
           <Link to="/favorites" onClick={closeMenu} className="text-lg text-gray-300 hover:text-white">
             Favoritos
           </Link>
-        </nav>
+        </div>
       </div>
     </nav>
   )

@@ -57,13 +57,12 @@ const MovieCard = ({ movie, enableLink = true, highlightQuery = "" , trashIcon =
             transition-transform duration-300 
             group-hover:scale-105
           "
-        />
-               
+        />               
         <button
           onClick={handleFavoriteClick}
           className="
             absolute top-2 right-2 z-10
-            w-8 h-8 rounded-full bg-black/40 
+            w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full bg-black/40 
             flex items-center justify-center
             hover:bg-black/60 transition-colors
             text-white
@@ -73,22 +72,16 @@ const MovieCard = ({ movie, enableLink = true, highlightQuery = "" , trashIcon =
           {trashIcon === false ? (
             
             <span
-
             className={`
-
-              text-lg
-
+              text-lg md:text-3x1 lg:text-4xl
               ${isMovieFavorited ? "text-red-500" : "text-white"}
-
             `}
-
-          >
+            >
             {isMovieFavorited ? "♥" : "♡"}
-
           </span>) : (
             
             <span>
-              <Trash2 className="w-4 h-4 hover:stroke-red-500" />
+              <Trash2 className="w-4 h-4 lg:w-6 lg:h-6 hover:stroke-red-500" />
             </span>
           )}
         </button>

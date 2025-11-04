@@ -19,7 +19,7 @@ export const getPopularMovies = async (page: number) => { // <--- 1. Recebe 'pag
       return response.data; 
 };
 
-export const getDetailMovies = async (id: number) => {   
+export const getMoviesDetails = async (id: number) => {   
   const response = await api.get(`/movie/${id}`, {
     params: {
     language: 'pt-BR',       

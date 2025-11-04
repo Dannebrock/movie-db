@@ -18,9 +18,8 @@ interface FavoritesContextType {
   isFavorited: (movieId: number) => boolean;
 }
 
-const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
+export const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
 
-// --- Funções Auxiliares (fora do componente) ---
 
 // Função para carregar do localStorage (só roda 1 vez)
 const getInitialFavorites = (): Movie[] => {

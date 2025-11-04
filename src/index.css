@@ -43,11 +43,11 @@ min-height: 100vh;
 /* Alterado para que links também fiquem brancos */
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #f8f8f8;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #a7a9c2;
 }
 h1 {
   /* Fonte responsiva: mínimo 2.4em, cresce com a tela, máximo 3.2em */  
@@ -69,8 +69,8 @@ h1 {
 
 @media (min-width: 640px) {
   .margin-nav {
-    margin-left: 32px;  /* 2rem - Sua margem original */
-    margin-right: 32px; /* 2rem - Sua margem original */
+    margin-left: 28px;  /* 2rem - Sua margem original */
+    margin-right: 28px; /* 2rem - Sua margem original */
   }
 }
 

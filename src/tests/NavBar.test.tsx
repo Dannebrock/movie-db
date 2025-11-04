@@ -1,22 +1,21 @@
-// src/components/NavBar/NavBar.test.tsx
-
 import { render, screen, fireEvent, within } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import '@testing-library/jest-dom';
 
-// Mock icons
 vi.mock('react-icons/bi', () => ({
   BiSearchAlt2: () => <svg data-testid="search-icon" />,
 }));
+
 vi.mock('lucide-react', () => ({
   Film: () => <svg data-testid="film-icon" />,
   Menu: () => <svg data-testid="menu-icon" />,
   ChevronLeft: () => <svg data-testid="chevron-left-icon" />,
+  House: () => <svg data-testid="house-icon" />,
+  Heart: () => <svg data-testid="heart-icon" />,
 }));
 
-// Mock useNavigate
 const mockNavigate = vi.fn();
 vi.mock('react-router-dom', async (importOriginal) => {
   const actual = await importOriginal();
@@ -26,9 +25,9 @@ vi.mock('react-router-dom', async (importOriginal) => {
   };
 });
 
-const renderComponent = () => {
+const renderComponent = (route = '/') => {
   return render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={[route]}>
       <NavBar />
     </MemoryRouter>
   );
@@ -49,14 +48,13 @@ describe('Componente NavBar', () => {
 
     const mainNav = screen.getByRole('navigation');
 
-    expect(  within(mainNav).getAllByRole('link', { name: 'Home' })
-    ).toHaveLength(2); 
+    expect(within(mainNav).getAllByRole('link', { name: 'Home' })
+    ).toHaveLength(2);
 
     expect(
-    within(mainNav).getAllByRole('link', { name: 'Favoritos' })
-    ).toHaveLength(2); // Espera encontrar 2 links "Favoritos"
+      within(mainNav).getAllByRole('link', { name: 'Favoritos' })
+    ).toHaveLength(2);
 
-    // Encontra o botão de menu (mobile)
     expect(screen.getByTestId('menu-icon')).toBeInTheDocument();
   });
 
@@ -99,14 +97,37 @@ describe('Componente NavBar', () => {
     expect(mockNavigate).not.toHaveBeenCalled();
   });
 
- it('deve fechar o menu mobile ao clicar em um link da sidebar', () => {
+  it('deve abrir e fechar o menu mobile ao clicar no botão', () => {
+    renderComponent();
+    const sidebarContent = document.querySelector('div.flex-col');
+    const sidebarContainer = sidebarContent?.parentElement as HTMLElement;
+    expect(sidebarContainer).toHaveClass('-translate-x-full');
+    expect(screen.getByTestId('menu-icon')).toBeInTheDocument();
+    expect(screen.queryByTestId('chevron-left-icon')).not.toBeInTheDocument();
+    
+    const menuButton = screen.getByTestId('menu-icon').closest('button') as HTMLButtonElement;
+    fireEvent.click(menuButton);
+
+    expect(sidebarContainer).toHaveClass('translate-x-0');
+    expect(sidebarContainer).not.toHaveClass('-translate-x-full');
+    expect(screen.getByTestId('chevron-left-icon')).toBeInTheDocument();
+    expect(screen.queryByTestId('menu-icon')).not.toBeInTheDocument();
+
+    const closeButton = screen.getByTestId('chevron-left-icon').closest('button') as HTMLButtonElement;
+    fireEvent.click(closeButton);
+
+    expect(sidebarContainer).toHaveClass('-translate-x-full');
+    expect(screen.getByTestId('menu-icon')).toBeInTheDocument();
+    expect(screen.queryByTestId('chevron-left-icon')).not.toBeInTheDocument();
+  });
+
+  it('deve fechar o menu mobile ao clicar em um link da sidebar', () => {
     renderComponent();
     
     const sidebarContent = document.querySelector('div.flex-col') as HTMLElement;
     const sidebarContainer = sidebarContent.parentElement as HTMLElement;
     const menuButton = screen.getByTestId('menu-icon').closest('button') as HTMLButtonElement;
 
-    
     fireEvent.click(menuButton);
     expect(sidebarContainer).toHaveClass('translate-x-0');
     expect(screen.getByTestId('chevron-left-icon')).toBeInTheDocument();
@@ -117,25 +138,41 @@ describe('Componente NavBar', () => {
     expect(sidebarContainer).toHaveClass('-translate-x-full');
     expect(screen.getByTestId('menu-icon')).toBeInTheDocument();
     expect(screen.queryByTestId('chevron-left-icon')).not.toBeInTheDocument();
-    });
+  });
 
-    it('deve fechar o menu mobile ao clicar em um link da sidebar', () => {
-    renderComponent();
-   
-    const sidebarContent = document.querySelector('div.flex-col'); 
-    const sidebarContainer = sidebarContent?.parentElement as HTMLElement;
-    const menuButton = screen.getByTestId('menu-icon').closest('button') as HTMLButtonElement;
+  it('deve aplicar a classe ativa apenas aos links da Home na rota /', () => {
+    renderComponent('/');
+    
+    const homeLinks = screen.getAllByRole('link', { name: /Home/i });
+    const favoritesLinks = screen.getAllByRole('link', { name: /Favoritos/i });
 
+    expect(homeLinks[0]).toHaveClass('bg-indigo-600');
+    expect(homeLinks[1]).toHaveClass('bg-indigo-600');
+    expect(favoritesLinks[0]).not.toHaveClass('bg-indigo-600');
+    expect(favoritesLinks[1]).not.toHaveClass('bg-indigo-600');
+  });
+
+  it('deve aplicar a classe ativa apenas aos links de Favoritos na rota /favorites', () => {
+    renderComponent('/favorites');
     
-    fireEvent.click(menuButton);   
-    expect(sidebarContainer).toHaveClass('translate-x-0');
-    expect(screen.getByTestId('chevron-left-icon')).toBeInTheDocument();    
+    const homeLinks = screen.getAllByRole('link', { name: /Home/i });
+    const favoritesLinks = screen.getAllByRole('link', { name: /Favoritos/i });
+
+    expect(homeLinks[0]).not.toHaveClass('bg-indigo-600');
+    expect(homeLinks[1]).not.toHaveClass('bg-indigo-600');
+    expect(favoritesLinks[0]).toHaveClass('bg-indigo-600');
+    expect(favoritesLinks[1]).toHaveClass('bg-indigo-600');
+  });
+
+  it('não deve aplicar a classe ativa em outras rotas', () => {
+    renderComponent('/search?q=test');
     
-    const mobileFavoritesLink = within(sidebarContent as HTMLElement).getByRole('link', { name: 'Favoritos' });
-    fireEvent.click(mobileFavoritesLink);    
-    
-    expect(sidebarContainer).toHaveClass('-translate-x-full');
-    expect(screen.getByTestId('menu-icon')).toBeInTheDocument();
-    expect(screen.queryByTestId('chevron-left-icon')).not.toBeInTheDocument();
-    });
+    const homeLinks = screen.getAllByRole('link', { name: /Home/i });
+    const favoritesLinks = screen.getAllByRole('link', { name: /Favoritos/i });
+
+    expect(homeLinks[0]).not.toHaveClass('bg-indigo-600');
+    expect(homeLinks[1]).not.toHaveClass('bg-indigo-600');
+    expect(favoritesLinks[0]).not.toHaveClass('bg-indigo-600');
+    expect(favoritesLinks[1]).not.toHaveClass('bg-indigo-600');
+  });
 });

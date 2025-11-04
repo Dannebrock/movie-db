@@ -1,6 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, NavLink } from 'react-router-dom'
 import { BiSearchAlt2 } from 'react-icons/bi'
-import { Film,Menu, ChevronLeft} from 'lucide-react'
+import { Film,Menu, ChevronLeft, House,Heart} from 'lucide-react'
 import { useState } from 'react'
 
 const NavBar = () => {
@@ -21,7 +21,7 @@ const NavBar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 w-full bg-[#1a2332] border-b border-[#2a3442] px-2 sm:px-6 lg:px-10">
-      <div className="mx-auto flex h-14 items-center justify-between margin-nav">
+      <div className="mx-auto flex h-20 items-center justify-between margin-nav">
         {/* 3. BOTÃO DE MENU (MOBILE)
             'flex' = visível no mobile
             'sm:hidden' = escondido a partir de 640px
@@ -72,12 +72,26 @@ const NavBar = () => {
             'sm:flex' = vira flex (visível) a partir de 640px
         */}
         <div className="hidden sm:flex items-center gap-6">
-          <Link to="/" className="text-lg font-large text-gray-300 transition-colors hover:text-white">
-            Home
-          </Link>
-          <Link to="/favorites" className=" text-lg text-gray-300 transition-colors hover:text-white">
-            Favoritos
-          </Link>
+         <NavLink 
+            to="/"
+            end         
+            className={({ isActive }) =>
+              `gap-2 text-lg font-large text-white transition-colors hover:text-white rounded-lg w-24 h-10 flex items-center justify-center 
+              ${isActive ? 'bg-indigo-600' : ''}` 
+            }
+            >
+            <House size={18}/> Home
+          </NavLink>
+      
+          <NavLink 
+            to="/favorites"         
+            className={({ isActive }) =>
+              `gap-2 text-lg transition-colors hover:text-white rounded-lg w-28 h-10 flex items-center justify-center 
+              ${isActive ? 'bg-indigo-600' : ''}` 
+            }
+              >
+            <Heart size={18} /> Favoritos
+          </NavLink>
         </div>
 
         
@@ -90,12 +104,28 @@ const NavBar = () => {
                    sm:hidden`} // O menu lateral também some no desktop
       >
         <div className="flex flex-col p-4 gap-4">
-          <Link to="/" onClick={closeMenu} className="text-lg text-gray-300 hover:text-white">
-            Home
-          </Link>
-          <Link to="/favorites" onClick={closeMenu} className="text-lg text-gray-300 hover:text-white">
-            Favoritos
-          </Link>
+          <NavLink 
+            to="/"
+            end         
+            onClick={closeMenu}
+            className={({ isActive }) =>
+              `gap-2 text-lg font-large text-white transition-colors hover:text-white rounded-lg w-24 h-10 flex items-center justify-center 
+              ${isActive ? 'bg-indigo-600' : ''}` 
+            }
+            >
+            <House size={18}/> Home
+          </NavLink>
+      
+          <NavLink 
+            to="/favorites"         
+            onClick={closeMenu}
+            className={({ isActive }) =>
+              `gap-2 text-lg transition-colors hover:text-white rounded-lg w-28 h-10 flex items-center justify-center 
+              ${isActive ? 'bg-indigo-600' : ''}` 
+            }
+              >
+            <Heart size={18} /> Favoritos
+          </NavLink>
         </div>
       </div>
     </nav>

@@ -76,7 +76,7 @@ const Favorites = () => {
           </p>
           <Link 
             to="/" 
-            className="bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors button-search"
+            className="bg-indigo-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-indigo-700 transition-colors button-search"
           >
             Explorar Filmes
           </Link>

@@ -25,7 +25,7 @@ const MovieCard = ({ movie, enableLink = true, highlightQuery = "" , trashIcon =
   const isMovieFavorited = isFavorited(movie.id);
   
   const poster = movie.poster_path
-    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+    ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
     : "/placeholder-poster.png";
 
   // 1. === CRIA A FUNÇÃO DE CLIQUE DO FAVORITO ===

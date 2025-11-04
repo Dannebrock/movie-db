@@ -62,7 +62,7 @@ describe('Componente MovieCard', () => {
     expect(screen.getByText('8.5')).toBeInTheDocument();
     
     const img = screen.getByRole('img', { name: /Filme de Teste/i });
-    expect(img).toHaveAttribute('src', 'https://image.tmdb.org/t/p/w500/poster.jpg');
+    expect(img).toHaveAttribute('src', 'https://image.tmdb.org/t/p/w300/poster.jpg');
   });
 
   it('deve usar um poster placeholder se poster_path for nulo', () => {

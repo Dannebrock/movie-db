@@ -52,13 +52,13 @@ function MovieDetails() {
   }, [id]); // O 'useEffect' vai rodar de novo se o ID na URL mudar
 
 
-  if (loading) {
-    return <div className="text-white text-center p-10">Carregando...</div>;
-  }
+    if (loading) {
+      return <div className="text-white text-center p-10">Carregando...</div>;
+    }
 
-  if (!movie) {
-    return <div className="text-white text-center p-10">Filme não encontrado.</div>;
-  }
+    if (!movie) {
+      return <div className="text-white text-center p-10">Filme não encontrado.</div>;
+    }
 
   const handleFavoriteClick = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -76,14 +76,15 @@ function MovieDetails() {
 
   // Se passou, temos o filme!
 const imageUrl = movie.backdrop_path
-    ? `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}` // Usamos w1280 para maior resolução
+    ? `https://image.tmdb.org/t/p/w780${movie.backdrop_path}` // Usamos w1280 para maior resolução
     : "/placeholder-backdrop.png"; // (Use o mesmo placeholder do seu card)
 
   return (
     // Container principal que centraliza o conteúdo
     <div className="container mx-auto p-4 md:p-8 text-white">
-      
-      {/* Grid de 2 colunas: 1 no mobile (stack), 2 no desktop */}
+      {!movie || !movie.id ? (
+          <div className="text-white text-center p-10">Tente novamente mais tarde...</div>
+      ) : (      
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
         
         {/* IMAGEM */}
@@ -168,7 +169,9 @@ const imageUrl = movie.backdrop_path
          
           
         </div>
-      </div>
+        
+      </div> 
+      )}     
     </div>
   );
 }

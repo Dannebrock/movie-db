@@ -47,16 +47,17 @@ Clone o repositório e instale as dependências:
 
 ```bash
 git clone https://github.com/Dannebrock/movie-db.git
-cd Movie-db
+cd movie-db
 npm install
 ```
 
 ---
 
 ### 3. Configuração do Ambiente
-
-1. Renomeie o arquivo `.env.example` para `.env`
-2. Adicione sua chave de API:
+1. Crie uma conta gratuita em: [https://www.themoviedb.org/](https://www.themoviedb.org/)  
+2. Gere sua **API Key (v3)** em: [https://www.themoviedb.org/settings/api](https://www.themoviedb.org/settings/api)
+3. Renomeie o arquivo `.env.example` para `.env`
+4. Adicione sua chave de API:
 
 ```bash
 VITE_TMDB_API_KEY=sua_api_key_aqui

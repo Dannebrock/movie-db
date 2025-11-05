@@ -129,5 +129,5 @@ Sinta-se à vontade para clonar, modificar e contribuir!
 
 ---
 
-👨‍💻 **Desenvolvido por [Matheus Dannebrock](https://github.com/Dannebrock)** 
+👨‍💻 **Desenvolvido por [Matheus Dannebrock](https://www.linkedin.com/in/matheus-dannebrock)** 
 

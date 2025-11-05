@@ -1,9 +1,9 @@
-# 🎬 App de Descoberta de Filmes (Movie Discovery)
+# 🎬 App de Descoberta de Filmes
 
 Este é um projeto front-end construído com **React**, **TypeScript** e **Tailwind CSS**.  
 O objetivo principal é listar filmes populares consumindo a API do [The Movie Database (TMDB)](https://www.themoviedb.org/).
 
-Veja o projeto funcionando hospedado na **Vercel** : [Site Dispoível](https://movie-db-cdb1.vercel.app)
+Veja o projeto funcionando hospedado na **Vercel** : [Acesse Aqui!](https://movie-db-cdb1.vercel.app)
 ---
 
 ## ✨ Funcionalidades

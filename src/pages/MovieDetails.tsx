@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom';
 import { getMoviesDetails } from '../services/api'; 
 import { Heart} from 'lucide-react'
 import { useFavorites } from "../contexts/FavoritesContext";
-
-// (Opcional, mas recomendado) Crie uma interface para os detalhes
 interface MovieDetails {
   id: number;
   title: string;
@@ -15,42 +13,29 @@ interface MovieDetails {
   release_date: string;
   genres: { id: number; name: string }[];  
 }
-
-
-
-function MovieDetails() {
-  // 3. Pegue o 'id' da URL. Ele vem como string!
-  const { id } = useParams<{ id: string }>(); 
-
-  // 4. Crie estados para guardar os dados e o carregamento
+function MovieDetails() {  
+  const { id } = useParams<{ id: string }>();   
   const [movie, setMovie] = useState<MovieDetails | null>(null);
   const [loading, setLoading] = useState(true);
-
   const { addFavorite, removeFavorite, isFavorited } = useFavorites();
   const isMovieFavorited = movie ? isFavorited(movie.id) : false;
-
-  // 5. Use 'useEffect' para buscar os dados quando a página carregar
-  useEffect(() => {
-    // Crie uma função async dentro do useEffect
-    const fetchDetails = async () => {
-      // Verifique se o ID existe
-      if (id) {
-        try {
-          setLoading(true); // Começa a carregar
-          // Converta o 'id' (string) para 'number'
-          const data = await getMoviesDetails(Number(id)); 
-          setMovie(data); // Salva os dados no estado
-        } catch (error) {
-          console.error("Erro ao buscar detalhes do filme:", error);
-          // (Opcional) Você pode redirecionar para uma página de erro aqui
-        } finally {
-          setLoading(false); // Termina de carregar (com sucesso ou erro)
+ 
+    useEffect(() => {
+      const fetchDetails = async () => {     
+        if (id) {
+          try {
+            setLoading(true);
+            const data = await getMoviesDetails(Number(id)); 
+            setMovie(data); 
+          } catch (error) {
+            console.error("Erro ao buscar detalhes do filme:", error);          
+          } finally {
+            setLoading(false); 
+          }
         }
-      }
-    };
-    fetchDetails(); // Chame a função
-  }, [id]); // O 'useEffect' vai rodar de novo se o ID na URL mudar
-
+      };
+      fetchDetails(); 
+    }, [id]); 
 
     if (loading) {
       return <div className="text-white text-center p-10">Carregando...</div>;
@@ -62,30 +47,24 @@ function MovieDetails() {
 
   const handleFavoriteClick = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
-    event.stopPropagation();
+    event.stopPropagation();    
     
-    // 7. A lógica agora é simples:
-    if (isMovieFavorited) {
-      // Se já é favorito, remova
+    if (isMovieFavorited) {      
       removeFavorite(movie.id);
-    } else {
-      // Se não é, adicione
+    } else {      
       addFavorite(movie); 
     }
   };
-
-  // Se passou, temos o filme!
+  
 const imageUrl = movie.backdrop_path
-    ? `https://image.tmdb.org/t/p/w780${movie.backdrop_path}` // Usamos w1280 para maior resolução
-    : "/placeholder-backdrop.png"; // (Use o mesmo placeholder do seu card)
-
-  return (
-    // Container principal que centraliza o conteúdo
+    ? `https://image.tmdb.org/t/p/w780${movie.backdrop_path}`
+    : "/placeholder-backdrop.png"; 
+  return (    
     <div className="container mx-auto p-4 md:p-8 text-white">
       {!movie || !movie.id ? (
           <div className="text-white text-center p-10">Tente novamente mais tarde...</div>
       ) : (      
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mt-6">
         
         {/* IMAGEM */}
         <div className="md:col-span-6 ">
@@ -125,7 +104,6 @@ const imageUrl = movie.backdrop_path
               })
             }
           </p>
-
           {/* Nota */}
           <div className="flex items-center gap-2 mb-6">
             <span className="text-gray-300">Nota TMDB:</span>
@@ -133,7 +111,6 @@ const imageUrl = movie.backdrop_path
               <span>{movie.vote_average.toFixed(1)}</span>
             </div>
           </div>
-
           {/* Sinopse */}
           <h2 className="text-2xl font-bold mb-2">Sinopse</h2>
           <p className="text-gray-300 leading-relaxed">
@@ -141,7 +118,6 @@ const imageUrl = movie.backdrop_path
           </p>
 
           {/* Botão de Favoritos */}
-
            <button
               onClick={handleFavoriteClick}
               className={`
@@ -165,11 +141,8 @@ const imageUrl = movie.backdrop_path
                   <span>Adicionar aos Favoritos</span>
                 </>
               )}
-            </button>
-         
-          
-        </div>
-        
+            </button>        
+        </div>        
       </div> 
       )}     
     </div>

@@ -1,8 +1,6 @@
-// src/contexts/FavoritesContext.tsx
 import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import type { ReactNode } from 'react';
 
-// (Sua interface Movie)
 interface Movie {
   id: number;
   title: string;
@@ -10,7 +8,6 @@ interface Movie {
   vote_average: number;
   release_date?: string;
 }
-
 interface FavoritesContextType {
   favorites: Movie[];
   addFavorite: (movie: Movie) => void;
@@ -20,8 +17,6 @@ interface FavoritesContextType {
 
 export const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
 
-
-// Função para carregar do localStorage (só roda 1 vez)
 const getInitialFavorites = (): Movie[] => {
   try {
     const storedFavorites = localStorage.getItem('movie-favorites');
@@ -32,64 +27,46 @@ const getInitialFavorites = (): Movie[] => {
   }
 };
 
-export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
-  
-  // 1. O useState fica mais limpo, passando a função de 'lazy init'
-  const [favorites, setFavorites] = useState<Movie[]>(getInitialFavorites);
+export const FavoritesProvider = ({ children }: { children: ReactNode }) => {   
+    const [favorites, setFavorites] = useState<Movie[]>(getInitialFavorites);  
+      useEffect(() => {
+        try {
+          localStorage.setItem('movie-favorites', JSON.stringify(favorites));
+        } catch (error) {
+          console.error("Erro ao salvar favoritos no localStorage:", error);
+        }
+      }, [favorites]);  
+    const addFavorite = (movie: Movie) => {    
+        setFavorites((prev) => 
+          prev.some(fav => fav.id === movie.id) 
+            ? prev 
+            : [...prev, movie] 
+        );
+    };
+    const removeFavorite = (movieId: number) => {
+      setFavorites((prev) => prev.filter(fav => fav.id !== movieId));
+    };
 
-  // 2. O useEffect fica igual, mas é bom para persistência
-  useEffect(() => {
-    try {
-      localStorage.setItem('movie-favorites', JSON.stringify(favorites));
-    } catch (error) {
-      console.error("Erro ao salvar favoritos no localStorage:", error);
-    }
-  }, [favorites]);
+    const isFavorited = (movieId: number) => {    
+        return favorites.some(fav => fav.id === movieId);
+      };  
+    const value = useMemo(() => ({
+        favorites,
+        addFavorite,
+        removeFavorite,
+        isFavorited
+    }), [favorites]); 
 
-  // --- Funções de Ação (podem ser 'useCallback' mas vamos manter simples) ---
-  
-  const addFavorite = (movie: Movie) => {
-    // 3. Lógica 'add' ficou mais enxuta (ternário)
-    setFavorites((prev) => 
-      prev.some(fav => fav.id === movie.id) 
-        ? prev // Se já existe, retorna o array anterior
-        : [...prev, movie] // Se não, adiciona
+    return (
+      <FavoritesContext.Provider value={value}>
+        {children}
+      </FavoritesContext.Provider>
     );
   };
-
-  const removeFavorite = (movieId: number) => {
-    setFavorites((prev) => prev.filter(fav => fav.id !== movieId));
+  export const useFavorites = () => {
+    const context = useContext(FavoritesContext);
+    if (context === undefined) {
+      throw new Error('useFavorites deve ser usado dentro de um FavoritesProvider');
+    }
+    return context;
   };
-
-  const isFavorited = (movieId: number) => {
-    // 4. 'useMemo' aqui não é necessário, 
-    //    pois 'favorites.some' já é muito rápido.
-    return favorites.some(fav => fav.id === movieId);
-  };
-
-  // 5. Otimização: useMemo
-  // Isso garante que o objeto 'value' SÓ seja recriado
-  // se a lista 'favorites' realmente mudar.
-  // Evita re-renderizações desnecessárias nos componentes.
-  const value = useMemo(() => ({
-    favorites,
-    addFavorite,
-    removeFavorite,
-    isFavorited
-  }), [favorites]); // O 'value' só muda se 'favorites' mudar
-
-  return (
-    <FavoritesContext.Provider value={value}>
-      {children}
-    </FavoritesContext.Provider>
-  );
-};
-
-// O Hook customizado fica igual
-export const useFavorites = () => {
-  const context = useContext(FavoritesContext);
-  if (context === undefined) {
-    throw new Error('useFavorites deve ser usado dentro de um FavoritesProvider');
-  }
-  return context;
-};

@@ -1,14 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-// import App from './App.tsx'
 import Home from './pages/Home.tsx'
 import MovieDetails from './pages/MovieDetails.tsx'
 import Favorites from './pages/Favorites.tsx'
 import Search from './pages/Search.tsx'
 import NotFoundPage from './pages/NotFoundPage.tsx'
 import AppLayout from './components/AppLayout'
-import { SearchProvider } from './contexts/SearchContext'
 import { FavoritesProvider } from './contexts/FavoritesContext' 
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
@@ -30,10 +28,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <FavoritesProvider>
-    <SearchProvider>
-      <RouterProvider router={router} />
-    </SearchProvider>
+    <FavoritesProvider>    
+      <RouterProvider router={router} />   
     </FavoritesProvider>
   </StrictMode>,
 )

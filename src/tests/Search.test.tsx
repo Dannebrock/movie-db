@@ -11,7 +11,7 @@ import '@testing-library/jest-dom';
 vi.mock('react-router-dom', async (importOriginal) => {
  const actual = await importOriginal();
  return {
-  ...(actual as object), // <-- Corrigido!
+  ...(actual as object), 
   useLocation: vi.fn(),
  };
 });

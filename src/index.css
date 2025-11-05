@@ -4,10 +4,8 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: dark; /* Força o esquema de cores escuro */
-  color: rgba(255, 255, 255, 0.87); /* Cor do texto principal (branco) */
-
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -17,30 +15,14 @@
   flex-direction: column;
 }
 
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-} */
 
-/* SEU CSS CORRIGIDO (SOLUÇÃO) */
 body {
 margin: 0;
-min-width: 320px;
-
-  /* Mude de 60vh para 100vh.
-     Isso garante que seu fundo azul ocupe
-     SEMPRE a altura inteira da tela,
-     mesmo que o conteúdo seja curto.
-  */
+min-width: 320px;  
 min-height: 100vh; 
-
-  background-color: #213547;
-  
-  /* 'display: flex' e 'place-items: center' foram REMOVIDOS */
+background-color: #213547;
 }
 
-/* Alterado para que links também fiquem brancos */
 a {
   font-weight: 500;
   color: #f8f8f8;
@@ -49,8 +31,7 @@ a {
 a:hover {
   color: #a7a9c2;
 }
-h1 {
-  /* Fonte responsiva: mínimo 2.4em, cresce com a tela, máximo 3.2em */  
+h1 { 
   line-height: 1.1;
 }
 
@@ -59,29 +40,19 @@ h1 {
 }
 
 .input-com-padding-esquerdo {
-  padding-left: 1rem; /* 1rem = 16px, que é o mesmo que a classe 'pl-4' do Tailwind */
+  padding-left: 1rem; 
 }
 
 .margin-nav {
-  margin-left: 8px;  /* 1rem */
-  margin-right: 8px; /* 1rem */
+  margin-left: 8px;  
+  margin-right: 8px; 
 }
-
 @media (min-width: 640px) {
   .margin-nav {
-    margin-left: 28px;  /* 2rem - Sua margem original */
-    margin-right: 28px; /* 2rem - Sua margem original */
+    margin-left: 28px;  
+    margin-right: 28px; 
   }
 }
-
-.movies-container{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 2rem;  
-  margin: 0 auto;
-} 
-
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -90,8 +61,7 @@ button {
   font-weight: 400;
   font-family: inherit;  
   cursor: pointer;
-  transition: border-color 0.25s;
-  /* color: inherit;  */
+  transition: border-color 0.25s;  
 }
 button:hover {
   border-color: #ffffff;
@@ -100,9 +70,3 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
-/*
-  REMOVIDO: O bloco @media (prefers-color-scheme: light) 
-  foi removido. Isso força seu site a ficar sempre
-  em modo escuro (com texto branco), como você pediu.
-*/

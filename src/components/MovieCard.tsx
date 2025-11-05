@@ -3,21 +3,19 @@ import { Link } from "react-router-dom";
 import { useFavorites } from "../contexts/FavoritesContext";
 import {Trash2} from 'lucide-react'
 
-interface Movie {
-  id: number;
-  title: string;
-  poster_path: string | null;
-  vote_average: number;
-  release_date?: string;
-}
-
-interface MovieCardProps {
-  movie: Movie;
-  enableLink?: boolean;
-  highlightQuery?: string;
-  trashIcon?: boolean;
-}
-
+  interface Movie {
+    id: number;
+    title: string;
+    poster_path: string | null;
+    vote_average: number;
+    release_date?: string;
+  }
+  interface MovieCardProps {
+    movie: Movie;
+    enableLink?: boolean;
+    highlightQuery?: string;
+    trashIcon?: boolean;
+  }
 
 const MovieCard = ({ movie, enableLink = true, highlightQuery = "" , trashIcon = false}: MovieCardProps) => {
 
@@ -27,19 +25,14 @@ const MovieCard = ({ movie, enableLink = true, highlightQuery = "" , trashIcon =
   const poster = movie.poster_path
     ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
     : "/placeholder-poster.png";
-
-  // 1. === CRIA A FUNÇÃO DE CLIQUE DO FAVORITO ===
-  // Ela precisa receber o 'event' do React
+  
   const handleFavoriteClick = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
-    event.stopPropagation();
+    event.stopPropagation();    
     
-    // 7. A lógica agora é simples:
     if (isMovieFavorited) {
-      // Se já é favorito, remova
-      removeFavorite(movie.id);
-    } else {
-      // Se não é, adicione
+        removeFavorite(movie.id);
+    } else {      
       addFavorite(movie); 
     }
   };
@@ -69,8 +62,7 @@ const MovieCard = ({ movie, enableLink = true, highlightQuery = "" , trashIcon =
           "
           aria-label="Adicionar aos favoritos"
         >          
-          {trashIcon === false ? (
-            
+          {trashIcon === false ? (            
             <span
             className={`
               text-lg md:text-3x1 lg:text-4xl
@@ -84,8 +76,7 @@ const MovieCard = ({ movie, enableLink = true, highlightQuery = "" , trashIcon =
               <Trash2 className="w-4 h-4 lg:w-6 lg:h-6 hover:stroke-red-500" />
             </span>
           )}
-        </button>
-               
+        </button>               
         {enableLink && (
           <div 
             className="
@@ -106,13 +97,11 @@ const MovieCard = ({ movie, enableLink = true, highlightQuery = "" , trashIcon =
           {!highlightQuery ? movie.title : (
             <>
               {movie.title.split(new RegExp(`(${highlightQuery})`, 'gi')).map((part, index) => 
-                part.toLowerCase() === highlightQuery.toLowerCase() ? (
-                  // Estilo de destaque (igual ao da sua imagem)
+                part.toLowerCase() === highlightQuery.toLowerCase() ? (                  
                   <span key={index} className="bg-yellow-500 text-black px-1 rounded-sm">
                     {part}
                   </span>
-                ) : (
-                  // Parte normal do texto
+                ) : (                  
                   <span key={index}>{part}</span>
                 )
               )}
@@ -124,9 +113,7 @@ const MovieCard = ({ movie, enableLink = true, highlightQuery = "" , trashIcon =
         </div>
       </div>
     </div>
-  );
-
-  // Esta lógica permanece a mesma: o Link envolve tudo
+  );  
   return enableLink ? (
     <Link to={`/movie/${movie.id}`} className="group block">
       {CardContent}

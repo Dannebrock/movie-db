@@ -12,8 +12,7 @@ const NotFoundPage = () => {
             Voltar para a Página Inicial
           </button>
         </Link>
-      </div>
- 
+      </div> 
   )
 }
 

@@ -8,7 +8,7 @@ Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
 },
 });
 
-export const getPopularMovies = async (page: number) => { // <--- 1. Recebe 'page' como argumento
+export const getPopularMovies = async (page: number) => { 
         const response = await api.get('/movie/popular', {
         params: {
         language: 'pt-BR',
@@ -26,7 +26,7 @@ export const getMoviesDetails = async (id: number) => {
     }
   });
 
-  return response.data; // Retorna o objeto completo do filme
+  return response.data; 
 };
 
 export const searchMovies = async (page: number, termo: string) => {  

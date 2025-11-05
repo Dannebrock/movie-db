@@ -18,7 +18,7 @@ const NavBar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 w-full bg-[#1a2332] border-b border-[#2a3442] px-2 sm:px-6 lg:px-10">
       <div className="mx-auto flex h-20 items-center justify-between margin-nav">
-        {/* 3. BOTÃO DE MENU (MOBILE) */}
+                
         <div className="flex sm:hidden items-center">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -76,7 +76,7 @@ const NavBar = () => {
           </NavLink>
         </div>        
       </div>
-      {/* O MENU LATERAL (SIDEBAR) MOBILE */}
+      
       <div
         className={`fixed top-14 left-0 h-screen w-64 bg-[#121822] z-40 transform transition-transform duration-300 ease-in-out
                    ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} 

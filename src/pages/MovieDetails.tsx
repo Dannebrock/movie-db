@@ -64,9 +64,8 @@ const imageUrl = movie.backdrop_path
       {!movie || !movie.id ? (
           <div className="text-white text-center p-10">Tente novamente mais tarde...</div>
       ) : (      
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mt-6">
-        
-        {/* IMAGEM */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mt-6">       
+       
         <div className="md:col-span-6 ">
           <img
             src={imageUrl}
@@ -74,16 +73,13 @@ const imageUrl = movie.backdrop_path
             className="w-full h-auto rounded-lg shadow-lg"
           />
         </div>
-
-        {/*  INFORMAÇÕES  */}
-        <div className="md:col-span-6">
-          
-          {/* Título */}
+        
+        <div className="md:col-span-6">          
+         
           <h1 className="text-3xl md:text-4xl font-bold mb-4">
             {movie.title}
           </h1>
-
-          {/* Gêneros (Tags) */}
+          
           <div className="flex flex-wrap gap-2 mb-4">
             {movie.genres.map((genre) => (
               <span 
@@ -94,30 +90,28 @@ const imageUrl = movie.backdrop_path
               </span>
             ))}
           </div>
-
-          {/* Data de Lançamento */}
+          
           <p className="text-gray-300 mb-2">
-            <strong>Data de lançamento:</strong> {
-              // Formata a data para pt-BR
+            <strong>Data de lançamento:</strong> {             
               new Date(movie.release_date).toLocaleDateString('pt-BR', {
                 timeZone: 'UTC', 
               })
             }
           </p>
-          {/* Nota */}
+          
           <div className="flex items-center gap-2 mb-6">
             <span className="text-gray-300">Nota TMDB:</span>
             <div className="inline-flex items-center justify-center rounded-full bg-yellow-500 px-2 py-0.5 text-xs font-bold text-black">
               <span>{movie.vote_average.toFixed(1)}</span>
             </div>
           </div>
-          {/* Sinopse */}
+          
           <h2 className="text-2xl font-bold mb-2">Sinopse</h2>
           <p className="text-gray-300 leading-relaxed">
             {movie.overview || "Este filme não possui sinopse disponível."}
           </p>
 
-          {/* Botão de Favoritos */}
+          
            <button
               onClick={handleFavoriteClick}
               className={`

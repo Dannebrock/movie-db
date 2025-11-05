@@ -45,12 +45,11 @@ function Home() {
           } else {        
         console.error("Erro inesperado (não relacionado à API):", error);
       }    
-      setPopularMovies([]); // Garante que a lista está vazia se der erro
+      setPopularMovies([]); 
     } finally {      
       setIsLoading(false); 
     }   
-  };
-  // Função para carregar mais filmes (Página 2, 3...)
+  };  
   const loadMoreMovies = async () => {
     const nextPage = page + 1;
     try {
@@ -90,7 +89,7 @@ function Home() {
     }, []); 
 
   return (
-    <div className=""> {/* Seu container pai */}
+    <div className=""> 
     {isLoading ? (   
     <div className="text-white text-center p-10">      
       <svg className="animate-spin h-8 w-8 text-white mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

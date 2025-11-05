@@ -94,7 +94,9 @@ npm run test
 ```
 src/
 ├── components/
-│   └── NavBar.tsx             # Barra de navegação
+│   ├── AppLayout.tsx          # Componente que engloba o NavBar
+│   ├── MovieCard.tsx          # Componente para exibir a miniatura do Filme 
+│   ├── NavBar.tsx             # Barra de navegação
 │
 ├── contexts/
 │   └── FavoritesContext.tsx   # Contexto para gerenciamento de favoritos

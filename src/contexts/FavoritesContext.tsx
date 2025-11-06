@@ -62,11 +62,11 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
         {children}
       </FavoritesContext.Provider>
     );
-  };
-  export const useFavorites = () => {
-    const context = useContext(FavoritesContext);
-    if (context === undefined) {
-      throw new Error('useFavorites deve ser usado dentro de um FavoritesProvider');
-    }
-    return context;
-  };
+};
+export const useFavorites = () => {
+  const context = useContext(FavoritesContext);
+  if (context === undefined) {
+     throw new Error('useFavorites deve ser usado dentro de um FavoritesProvider');
+  }
+  return context;
+};

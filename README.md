@@ -117,7 +117,7 @@ src/
 │   ├── MovieCard.test.tsx
 │   ├── NavBar.test.tsx
 │   └── Search.test.tsx
-│
+│   └── FavoritesContext.test.tsx   
 ├── App.tsx
 ├── main.tsx
 └── index.css

@@ -117,7 +117,12 @@ src/
 │   ├── MovieCard.test.tsx
 │   ├── NavBar.test.tsx
 │   └── Search.test.tsx
-│   └── FavoritesContext.test.tsx   
+│   └── FavoritesContext.test.tsx 
+│
+│
+├── types/
+│   └── Movie.ts                 # Intarface Global para Movies
+│  
 ├── App.tsx
 ├── main.tsx
 └── index.css

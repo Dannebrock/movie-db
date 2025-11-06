@@ -3,14 +3,7 @@ import { getPopularMovies } from "../services/api";
 import MovieCard from "../components/MovieCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { isAxiosError } from 'axios';
-
-interface Movie {
-  id: number;
-  title: string;
-  poster_path: string | null;
-  vote_average: number;
-  release_date?: string;
-}
+import type { Movie } from "../types/Movie";
 
 function Home() {
   const [popularMovies, setPopularMovies] = useState<Movie[]>([]);

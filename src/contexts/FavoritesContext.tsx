@@ -1,13 +1,6 @@
 import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import type { ReactNode } from 'react';
-
-interface Movie {
-  id: number;
-  title: string;
-  poster_path: string | null;
-  vote_average: number;
-  release_date?: string;
-}
+import type { Movie } from "../types/Movie";
 interface FavoritesContextType {
   favorites: Movie[];
   addFavorite: (movie: Movie) => void;

@@ -1,4 +1,3 @@
-// src/pages/Favorites.tsx
 import { useState, useMemo } from 'react';
 import { useFavorites } from '../contexts/FavoritesContext'; 
 import MovieCard from '../components/MovieCard';
@@ -25,8 +24,7 @@ const Favorites = () => {
   }, [favorites, sortOrder]);
   
   return (    
-    <div>      
-      {/* --- Título e Filtro --- */}
+    <div>    
       <div className="mb-6 flex flex-col  items-start ml-6 ">
         <h1 className="text-xl md:text-4xl font-bold mt-5">
           Meus Filmes Favoritos
@@ -47,8 +45,6 @@ const Favorites = () => {
           </select>
         </div>
       </div>
-
-      {/* --- Favoritos Vazio  --- */}
       {favorites.length === 0 ? (      
           <div className="flex flex-col items-center justify-center text-center py-20 text-gray-400">
           <Clapperboard size={64} className="mb-6" />

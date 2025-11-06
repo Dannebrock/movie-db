@@ -3,14 +3,8 @@ import { useLocation } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { searchMovies } from '../services/api'; 
 import MovieCard from '../components/MovieCard';
+import type { Movie } from "../types/Movie";
 
-interface Movie {
-  id: number;
-  title: string;
-  poster_path: string | null;
-  vote_average: number;
-  release_date?: string;
-}
 function useQuery() {
   const { search } = useLocation();
   return new URLSearchParams(search);
